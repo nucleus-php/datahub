@@ -1,0 +1,35 @@
+{
+    "name": "nucleus-php/datahub",
+    "description": "NucleusPhp DataHub",
+    "type": "package",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jochem Klaver",
+            "email": "nucleus-php@7ochem.nl"
+        }
+    ],
+    "require": {
+        "psr/http-message": "^1",
+        "aura/router": "^3.1",
+        "zendframework/zend-diactoros": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6",
+        "phpmd/phpmd": "^2"
+    },
+    "autoload": {
+        "psr-4": {
+            "NucleusPhp\\DataHub\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "suggest": {
+        "evenement/evenement": "Very simple event handling library",
+        "nategood/httpful": "As a simple HTTP client",
+        "guzzlehttp/guzzle": "As a more advanced HTTP client",
+        "ellipsesynergie/api-response": "Look at this as a wrapper around Fractal handling transforming objects into generic responses",
+        "puli/discovery": "Discovery system useful for discovering the job executors and event listeners?"
+    }
+}
