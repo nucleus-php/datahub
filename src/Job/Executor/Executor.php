@@ -2,12 +2,14 @@
 
 namespace NucleusPhp\DataHub\Job\Executor;
 
+use NucleusPhp\DataHub\Job\JobInterface;
+
 /**
  * Class Executor
  *
  * @author Jochem Klaver <nucleus-php@7ochem.nl>
  */
-class Executor
+class Executor implements ExecutorInterface
 {
 
     /**
@@ -36,9 +38,9 @@ class Executor
     }
 
     /**
-     * @param \NucleusPhp\DataHub\Job\Job $job
+     * @param JobInterface $job
      */
-    public function handle(\NucleusPhp\DataHub\Job\Job $job)
+    public function handle(JobInterface $job)
     {
         if (!$this->handler) {
             return;

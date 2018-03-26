@@ -2,7 +2,7 @@
 
 namespace NucleusPhp\DataHub\Job\Executor;
 
-use NucleusPhp\DataHub\Job\Job;
+use NucleusPhp\DataHub\Job\JobInterface;
 
 /**
  * Class ExecutorCollection
@@ -13,7 +13,7 @@ class ExecutorCollection
 {
 
     /**
-     * @var Executor[][]
+     * @var ExecutorInterface[][]
      */
     private $jobExecutors = [];
 
@@ -32,7 +32,7 @@ class ExecutorCollection
 
     /**
      * @param string $jobType
-     * @return Executor[]
+     * @return ExecutorInterface[]
      */
     public function getExecutorsForType($jobType)
     {
@@ -42,11 +42,10 @@ class ExecutorCollection
         return $this->jobExecutors[$jobType];
     }
 
-
     /**
-     * @param Job $job
+     * @param JobInterface $job
      */
-    public function handleForEvent($job)
+    public function handleForEvent(JobInterface $job)
     {
         $executors = $this->getExecutorsForType($job->getTypeAsString());
         foreach ($executors as $executor) {

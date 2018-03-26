@@ -2,7 +2,7 @@
 
 namespace NucleusPhp\DataHub\Event\Listener;
 
-use NucleusPhp\DataHub\Event\Event;
+use NucleusPhp\DataHub\Event\EventInterface;
 
 /**
  * Class ListenerCollection
@@ -13,7 +13,7 @@ class ListenerCollection
 {
 
     /**
-     * @var Listener[][]
+     * @var ListenerInterface[][]
      */
     private $eventListeners = [];
 
@@ -32,7 +32,7 @@ class ListenerCollection
 
     /**
      * @param string $eventType
-     * @return Listener[]
+     * @return ListenerInterface[]
      */
     public function getListenersForType($eventType)
     {
@@ -42,11 +42,10 @@ class ListenerCollection
         return $this->eventListeners[$eventType];
     }
 
-
     /**
-     * @param Event $event
+     * @param EventInterface $event
      */
-    public function handleForEvent($event)
+    public function handleForEvent(EventInterface $event)
     {
         $listeners = $this->getListenersForType($event->getTypeAsString());
         foreach ($listeners as $listener) {

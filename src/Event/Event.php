@@ -7,7 +7,7 @@ namespace NucleusPhp\DataHub\Event;
  *
  * @author Jochem Klaver <nucleus-php@7ochem.nl>
  */
-class Event
+class Event implements EventInterface
 {
 
     const TYPE_STRING_SEPARATOR = '/';

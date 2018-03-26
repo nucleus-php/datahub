@@ -7,7 +7,7 @@ namespace NucleusPhp\DataHub\Job;
  *
  * @author Jochem Klaver <nucleus-php@7ochem.nl>
  */
-class Job
+class Job implements JobInterface
 {
 
     const TYPE_STRING_SEPARATOR = '/';

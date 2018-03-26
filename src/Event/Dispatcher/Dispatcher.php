@@ -3,6 +3,7 @@
 namespace NucleusPhp\DataHub\Event\Dispatcher;
 
 use NucleusPhp\DataHub\Event\Event;
+use NucleusPhp\DataHub\Event\EventInterface;
 use NucleusPhp\DataHub\Event\Listener\ListenerCollection;
 
 /**
@@ -14,7 +15,7 @@ class Dispatcher
 {
 
     /**
-     * @var Event
+     * @var EventInterface
      */
     private $event;
 
@@ -25,9 +26,9 @@ class Dispatcher
 
     /**
      * Dispatcher constructor
-     * @param Event $event
+     * @param EventInterface $event
      */
-    public function __construct(Event $event)
+    public function __construct(EventInterface $event)
     {
         $this->event = $event;
     }

@@ -2,12 +2,14 @@
 
 namespace NucleusPhp\DataHub\Event\Listener;
 
+use NucleusPhp\DataHub\Event\EventInterface;
+
 /**
  * Class Listener
  *
  * @author Jochem Klaver <nucleus-php@7ochem.nl>
  */
-class Listener
+class Listener implements ListenerInterface
 {
 
     /**
@@ -36,9 +38,9 @@ class Listener
     }
 
     /**
-     * @param \NucleusPhp\DataHub\Event\Event $event
+     * @param EventInterface $event
      */
-    public function handle(\NucleusPhp\DataHub\Event\Event $event)
+    public function handle(EventInterface $event)
     {
         if (!$this->handler) {
             return;

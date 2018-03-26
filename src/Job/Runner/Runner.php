@@ -4,6 +4,7 @@ namespace NucleusPhp\DataHub\Job\Runner;
 
 use NucleusPhp\DataHub\Job\Job;
 use NucleusPhp\DataHub\Job\Executor\ExecutorCollection;
+use NucleusPhp\DataHub\Job\JobInterface;
 
 /**
  * Class Runner
@@ -14,7 +15,7 @@ class Runner
 {
 
     /**
-     * @var Job
+     * @var JobInterface
      */
     private $job;
 
@@ -25,9 +26,9 @@ class Runner
 
     /**
      * Dispatcher constructor
-     * @param Job $job
+     * @param JobInterface $job
      */
-    public function __construct(Job $job)
+    public function __construct(JobInterface $job)
     {
         $this->job = $job;
     }
