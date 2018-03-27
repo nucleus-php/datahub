@@ -3,11 +3,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // @todo this is not Windows safe where the full path would start with a drive (C:\)
-define('ROOT_DIR', dirname(
+define('ROOT_DIR', dirname(dirname(
     substr($_SERVER['SCRIPT_FILENAME'], 0, strlen(DIRECTORY_SEPARATOR)) !== DIRECTORY_SEPARATOR
     ? getcwd() . DIRECTORY_SEPARATOR . $_SERVER['SCRIPT_FILENAME']
     : $_SERVER['SCRIPT_FILENAME']
-));
+)));
 
 require ROOT_DIR . '/vendor/autoload.php';
 
