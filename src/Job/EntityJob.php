@@ -14,9 +14,9 @@ class EntityJob extends Job
      * EntityJob constructor
      *
      * @param string[] $jobType
-     * @param array $jobData
+     * @param array<null|bool|int|float|string|array> $jobData
      */
-    public function __construct($jobType, $jobData)
+    public function __construct(array $jobType, array $jobData)
     {
         array_unshift($jobType, 'entity');
         parent::__construct($jobType, $jobData);

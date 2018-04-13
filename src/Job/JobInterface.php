@@ -11,6 +11,14 @@ interface JobInterface
 {
 
     /**
+     */
+    public function start();
+
+    /**
+     */
+    public function end();
+
+    /**
      * @return string[]
      */
     public function getType();
@@ -19,5 +27,10 @@ interface JobInterface
      * @return string
      */
     public function getTypeAsString();
+
+    /**
+     * @return JobDataInterface
+     */
+    public function getJobData();
 
 }

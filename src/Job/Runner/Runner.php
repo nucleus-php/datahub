@@ -35,8 +35,10 @@ class Runner
 
     public function dispatch()
     {
+        $this->job->start();
         $this->jobExecutorCollection = new ExecutorCollection();
         $this->jobExecutorCollection->handleForEvent($this->job);
+        $this->job->end();
     }
 
 }

@@ -18,19 +18,34 @@ class Job implements JobInterface
     private $type = [];
 
     /**
-     * @var
+     * @var JobDataInterface
      */
     private $jobData;
 
     /**
      * Job constructor
      * @param string[] $jobType
-     * @param array $jobData
+     * @param array<null|bool|int|float|string|array> $jobData
      */
-    public function __construct(array $jobType, $jobData)
+    public function __construct(array $jobType, array $jobData)
     {
         $this->type = $jobType;
-        $this->jobData = $jobData;
+        $this->jobData = new JobData($jobData);
+    }
+
+    /**
+     */
+    public function start()
+    {
+        $storedJobData = JobData::loadFromStorageForJob($this);
+        $this->jobData->addData($storedJobData->getData());
+    }
+
+    /**
+     */
+    public function end()
+    {
+        $this->jobData->saveToStorageForJob($this);
     }
 
     /**
@@ -47,6 +62,14 @@ class Job implements JobInterface
     public function getTypeAsString()
     {
         return implode($this::TYPE_STRING_SEPARATOR, $this->type);
+    }
+
+    /**
+     * @return JobDataInterface
+     */
+    public function getJobData()
+    {
+        return $this->jobData;
     }
 
 }
