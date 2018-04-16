@@ -12,7 +12,8 @@
     "require": {
         "psr/http-message": "^1",
         "aura/router": "^3.1",
-        "zendframework/zend-diactoros": "^1.4"
+        "zendframework/zend-diactoros": "^1.4",
+        "symfony/console": "^3.4 || ^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6",
@@ -23,6 +24,9 @@
             "NucleusPhp\\DataHub\\": "src/"
         }
     },
+    "bin": [
+        "bin/nucleus"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "suggest": {

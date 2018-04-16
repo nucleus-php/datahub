@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+if (is_dir($vendorDir = __DIR__ . '/../vendor')) {
+    // We're in root bin/ dir: this is a local project (clone/copy)
+    require_once $vendorDir . '/autoload.php';
+} elseif (is_dir($vendorDir = realpath(dirname(dirname(getcwd() . '/' . $_SERVER['SCRIPT_FILENAME']))))) {
+    // We're symlinked into vendor/bin/ dir: we're included into a project (Composer requirement)
+    require_once $vendorDir . '/autoload.php';
+}
+
+/**
+ * @todo Create \NucleusPhp\DataHub\Console\Application class that extends \Symfony\Component\Console\Application
+ */
+$application = new \Symfony\Component\Console\Application();
+
+//$application->add(new \NucleusPhp\DataHub\Console\Command\...());
+
+$application->run();
+
