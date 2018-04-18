@@ -4,7 +4,7 @@ namespace NucleusPhp\DataHub\Event\Dispatcher;
 
 use NucleusPhp\DataHub\Event\Event;
 use NucleusPhp\DataHub\Event\EventInterface;
-use NucleusPhp\DataHub\Event\Listener\ListenerCollection;
+use NucleusPhp\DataHub\Event\Listener\ListenerManager;
 
 /**
  * Class Dispatcher
@@ -20,9 +20,9 @@ class Dispatcher
     private $event;
 
     /**
-     * @var ListenerCollection
+     * @var ListenerManager
      */
-    private $eventListenerCollection;
+    private $eventListenerManager;
 
     /**
      * Dispatcher constructor
@@ -35,8 +35,14 @@ class Dispatcher
 
     public function dispatch()
     {
-        $this->eventListenerCollection = new ListenerCollection();
-        $this->eventListenerCollection->handleForEvent($this->event);
+        if ($this->event->isDispatched()) {
+            throw new \LogicException('Event was already dispatched');
+        }
+
+        $this->eventListenerManager = new ListenerManager();
+        $this->eventListenerManager->handleForEvent($this->event);
+
+        $this->event->isDispatched(true);
     }
 
 }

@@ -20,4 +20,10 @@ interface EventInterface
      */
     public function getTypeAsString();
 
+    /**
+     * @param bool|null $isDispatched
+     * @return bool
+     */
+    public function isDispatched($isDispatched = null);
+
 }

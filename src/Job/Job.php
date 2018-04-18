@@ -23,6 +23,11 @@ class Job implements JobInterface
     private $jobData;
 
     /**
+     * @var bool
+     */
+    private $isDispatched = false;
+
+    /**
      * Job constructor
      * @param string[] $jobType
      * @param array<null|bool|int|float|string|array> $jobData
@@ -37,6 +42,9 @@ class Job implements JobInterface
      */
     public function start()
     {
+        if ($this->isDispatched()) {
+            throw new \LogicException('Job was already dispatched');
+        }
         $storedJobData = JobData::loadFromStorageForJob($this);
         $this->jobData->addData($storedJobData->getData());
     }
@@ -46,6 +54,19 @@ class Job implements JobInterface
     public function end()
     {
         $this->jobData->saveToStorageForJob($this);
+        $this->isDispatched(true);
+    }
+
+    /**
+     * @param bool|null $isDispatched
+     * @return bool
+     */
+    public function isDispatched($isDispatched = null)
+    {
+        if (is_bool($isDispatched)) {
+            $this->isDispatched = $isDispatched;
+        }
+        return $this->isDispatched;
     }
 
     /**

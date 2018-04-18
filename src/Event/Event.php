@@ -18,12 +18,29 @@ class Event implements EventInterface
     private $type = [];
 
     /**
+     * @var bool
+     */
+    private $isDispatched = false;
+
+    /**
      * Event constructor
      * @param string[] $eventType
      */
     public function __construct(array $eventType)
     {
         $this->type = $eventType;
+    }
+
+    /**
+     * @param bool|null $isDispatched
+     * @return bool
+     */
+    public function isDispatched($isDispatched = null)
+    {
+        if (is_bool($isDispatched)) {
+            $this->isDispatched = $isDispatched;
+        }
+        return $this->isDispatched;
     }
 
     /**

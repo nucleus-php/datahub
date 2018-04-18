@@ -19,6 +19,12 @@ interface JobInterface
     public function end();
 
     /**
+     * @param bool|null $isDispatched
+     * @return bool
+     */
+    public function isDispatched($isDispatched = null);
+
+    /**
      * @return string[]
      */
     public function getType();

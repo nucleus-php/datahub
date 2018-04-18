@@ -2,8 +2,7 @@
 
 namespace NucleusPhp\DataHub\Job\Runner;
 
-use NucleusPhp\DataHub\Job\Job;
-use NucleusPhp\DataHub\Job\Executor\ExecutorCollection;
+use NucleusPhp\DataHub\Job\Executor\ExecutorManager;
 use NucleusPhp\DataHub\Job\JobInterface;
 
 /**
@@ -20,9 +19,9 @@ class Runner
     private $job;
 
     /**
-     * @var ExecutorCollection
+     * @var ExecutorManager
      */
-    private $jobExecutorCollection;
+    private $jobExecutorManager;
 
     /**
      * Dispatcher constructor
@@ -36,8 +35,8 @@ class Runner
     public function dispatch()
     {
         $this->job->start();
-        $this->jobExecutorCollection = new ExecutorCollection();
-        $this->jobExecutorCollection->handleForEvent($this->job);
+        $this->jobExecutorManager = new ExecutorManager();
+        $this->jobExecutorManager->handleForEvent($this->job);
         $this->job->end();
     }
 
