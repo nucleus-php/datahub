@@ -2,6 +2,8 @@
 
 namespace NucleusPhp\DataHub\Job;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Class Job
  *
@@ -28,14 +30,21 @@ class Job implements JobInterface
     private $isDispatched = false;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * Job constructor
      * @param string[] $jobType
      * @param array<null|bool|int|float|string|array> $jobData
+     * @param LoggerInterface $logger
      */
-    public function __construct(array $jobType, array $jobData)
+    public function __construct(array $jobType, array $jobData, LoggerInterface $logger)
     {
         $this->type = $jobType;
         $this->jobData = new JobData($jobData);
+        $this->logger = $logger;
     }
 
     /**
@@ -47,6 +56,7 @@ class Job implements JobInterface
         }
         $storedJobData = JobData::loadFromStorageForJob($this);
         $this->jobData->addData($storedJobData->getData());
+        $this->logger->info(sprintf('Job %s started', $this->getTypeAsString()));
     }
 
     /**
@@ -55,6 +65,7 @@ class Job implements JobInterface
     {
         $this->jobData->saveToStorageForJob($this);
         $this->isDispatched(true);
+        $this->logger->info(sprintf('Job %s ended', $this->getTypeAsString()));
     }
 
     /**
@@ -91,6 +102,14 @@ class Job implements JobInterface
     public function getJobData()
     {
         return $this->jobData;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
     }
 
 }
