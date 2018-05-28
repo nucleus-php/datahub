@@ -33,6 +33,8 @@ class Dispatcher
         $this->event = $event;
     }
 
+    /**
+     */
     public function dispatch()
     {
         if ($this->event->isDispatched()) {
@@ -40,7 +42,7 @@ class Dispatcher
         }
 
         $this->eventListenerManager = new ListenerManager();
-        $this->eventListenerManager->handleForEvent($this->event);
+        $this->eventListenerManager->handleEvent($this->event);
 
         $this->event->isDispatched(true);
     }

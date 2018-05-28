@@ -64,7 +64,7 @@ class ExecutorManager
     /**
      * @param JobInterface $job
      */
-    public function handleForEvent(JobInterface $job)
+    public function handleJob(JobInterface $job)
     {
         $executors = $this->getExecutorsForType($job->getTypeAsString());
         foreach ($executors as $executor) {

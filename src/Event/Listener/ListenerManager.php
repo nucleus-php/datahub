@@ -64,7 +64,7 @@ class ListenerManager
     /**
      * @param EventInterface $event
      */
-    public function handleForEvent(EventInterface $event)
+    public function handleEvent(EventInterface $event)
     {
         $listeners = $this->getListenersForType($event->getTypeAsString());
         foreach ($listeners as $listener) {

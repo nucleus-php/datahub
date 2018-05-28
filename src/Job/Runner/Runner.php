@@ -36,7 +36,7 @@ class Runner
     {
         $this->job->start();
         $this->jobExecutorManager = new ExecutorManager();
-        $this->jobExecutorManager->handleForEvent($this->job);
+        $this->jobExecutorManager->handleJob($this->job);
         $this->job->end();
     }
 
