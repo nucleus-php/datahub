@@ -6,6 +6,7 @@ namespace NucleusPhp\DataHub\Job;
  * Class JobData
  *
  * @author Jochem Klaver <nucleus-php@7ochem.nl>
+ * @todo Implement \JsonSerializable ({@link http://php.net/manual/en/class.jsonserializable.php})
  */
 class JobData implements JobDataInterface
 {
@@ -137,6 +138,7 @@ class JobData implements JobDataInterface
 
     /**
      * @return string
+     * @todo Rename to (or use) jsonSerialize(), {@see \JsonSerializable::jsonSerialize()}
      */
     private function toJson()
     {
