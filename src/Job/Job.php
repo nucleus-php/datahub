@@ -27,7 +27,7 @@ class Job implements JobInterface
     /**
      * @var bool
      */
-    private $isDispatched = false;
+    private $isExecuted = false;
 
     /**
      * @var LoggerInterface
@@ -51,8 +51,8 @@ class Job implements JobInterface
      */
     public function start()
     {
-        if ($this->isDispatched()) {
-            throw new \LogicException('Job was already dispatched');
+        if ($this->isExecuted()) {
+            throw new \LogicException('Job was already executed');
         }
         $storedJobData = JobData::loadFromStorageForJob($this);
         $this->jobData->addData($storedJobData->getData());
@@ -64,20 +64,8 @@ class Job implements JobInterface
     public function end()
     {
         $this->jobData->saveToStorageForJob($this);
-        $this->isDispatched(true);
+        $this->isExecuted(true);
         $this->logger->info(sprintf('Job %s ended', $this->getTypeAsString()));
-    }
-
-    /**
-     * @param bool|null $isDispatched
-     * @return bool
-     */
-    public function isDispatched($isDispatched = null)
-    {
-        if (is_bool($isDispatched)) {
-            $this->isDispatched = $isDispatched;
-        }
-        return $this->isDispatched;
     }
 
     /**
@@ -102,6 +90,18 @@ class Job implements JobInterface
     public function getJobData()
     {
         return $this->jobData;
+    }
+
+    /**
+     * @param bool|null $isExecuted
+     * @return bool
+     */
+    public function isExecuted($isExecuted = null)
+    {
+        if (is_bool($isExecuted)) {
+            $this->isExecuted = $isExecuted;
+        }
+        return $this->isExecuted;
     }
 
     /**

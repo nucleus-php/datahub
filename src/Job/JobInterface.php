@@ -19,10 +19,10 @@ interface JobInterface
     public function end();
 
     /**
-     * @param bool|null $isDispatched
+     * @param bool|null $isExecuted
      * @return bool
      */
-    public function isDispatched($isDispatched = null);
+    public function isExecuted($isExecuted = null);
 
     /**
      * @return string[]
