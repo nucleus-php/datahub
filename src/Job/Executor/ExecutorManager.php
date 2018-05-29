@@ -25,15 +25,15 @@ class ExecutorManager
      */
     public static function addJobExecutor($jobType, $executorName, callable $executorHandlerCallable)
     {
-        if (!array_key_exists($jobType, static::$jobExecutors)) {
-            static::$jobExecutors[$jobType] = [];
-        } elseif (array_key_exists($executorName, static::$jobExecutors[$jobType])) {
+        if (!array_key_exists($jobType, self::$jobExecutors)) {
+            self::$jobExecutors[$jobType] = [];
+        } elseif (array_key_exists($executorName, self::$jobExecutors[$jobType])) {
             throw new \UnexpectedValueException(sprintf(
                 'A job executor for job type "%s" with the name "%s" already exists',
                 $jobType, $executorName
             ));
         }
-        static::$jobExecutors[$jobType][$executorName] = (!$executorHandlerCallable instanceof ExecutorInterface
+        self::$jobExecutors[$jobType][$executorName] = (!$executorHandlerCallable instanceof ExecutorInterface
             ? new Executor($executorName, $executorHandlerCallable)
             : $executorHandlerCallable);
     }
@@ -55,10 +55,10 @@ class ExecutorManager
      */
     public function getExecutorsForType($jobType)
     {
-        if (!array_key_exists($jobType, static::$jobExecutors)) {
+        if (!array_key_exists($jobType, self::$jobExecutors)) {
             throw new \OutOfBoundsException('No job executors registered for this type of job');
         }
-        return static::$jobExecutors[$jobType];
+        return self::$jobExecutors[$jobType];
     }
 
     /**

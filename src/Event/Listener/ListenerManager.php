@@ -25,15 +25,15 @@ class ListenerManager
      */
     public static function addEventListener($eventType, $listenerName, callable $listenerHandlerCallable)
     {
-        if (!array_key_exists($eventType, static::$eventListeners)) {
-            static::$eventListeners[$eventType] = [];
-        } elseif (array_key_exists($listenerName, static::$eventListeners[$eventType])) {
+        if (!array_key_exists($eventType, self::$eventListeners)) {
+            self::$eventListeners[$eventType] = [];
+        } elseif (array_key_exists($listenerName, self::$eventListeners[$eventType])) {
             throw new \UnexpectedValueException(sprintf(
                 'An event listener for event type "%s" with the name "%s" already exists',
                 $eventType, $listenerName
             ));
         }
-        static::$eventListeners[$eventType][$listenerName] = (!$listenerHandlerCallable instanceof ListenerInterface
+        self::$eventListeners[$eventType][$listenerName] = (!$listenerHandlerCallable instanceof ListenerInterface
             ? new Listener($listenerName, $listenerHandlerCallable)
             : $listenerHandlerCallable);
     }
@@ -55,10 +55,10 @@ class ListenerManager
      */
     public function getListenersForType($eventType)
     {
-        if (!array_key_exists($eventType, static::$eventListeners)) {
+        if (!array_key_exists($eventType, self::$eventListeners)) {
             throw new \OutOfBoundsException('No job listeners registered for this type of job');
         }
-        return static::$eventListeners[$eventType];
+        return self::$eventListeners[$eventType];
     }
 
     /**
