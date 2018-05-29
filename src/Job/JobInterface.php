@@ -39,4 +39,9 @@ interface JobInterface
      */
     public function getJobData();
 
+    /**
+     * @return \Psr\Log\LoggerInterface
+     */
+    public function getLogger();
+
 }

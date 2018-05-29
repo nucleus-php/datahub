@@ -2,6 +2,8 @@
 
 namespace NucleusPhp\DataHub\Event;
 
+use NucleusPhp\DataHub\Event\Listener\ListenerManager;
+
 /**
  * Class Event
  *
@@ -57,6 +59,15 @@ class Event implements EventInterface
     public function getTypeAsString()
     {
         return implode($this::TYPE_STRING_SEPARATOR, $this->type);
+    }
+
+    /**
+     * @return \Psr\Log\LoggerInterface
+     * @throws \Exception
+     */
+    public function getLogger()
+    {
+        return ListenerManager::getLogger();
     }
 
 }

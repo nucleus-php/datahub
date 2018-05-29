@@ -2,7 +2,10 @@
 
 namespace NucleusPhp\DataHub\Event\Listener;
 
+use NucleusPhp\DataHub\Application;
 use NucleusPhp\DataHub\Event\EventInterface;
+
+use Psr\Log\LoggerInterface;
 
 /**
  * Class ListenerManager
@@ -70,6 +73,15 @@ class ListenerManager
         foreach ($listeners as $listener) {
             $listener->handle($event);
         }
+    }
+
+    /**
+     * @return LoggerInterface
+     * @throws \Exception
+     */
+    public static function getLogger()
+    {
+        return Application::getLogger();
     }
 
 }

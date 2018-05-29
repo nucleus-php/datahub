@@ -26,4 +26,9 @@ interface EventInterface
      */
     public function isDispatched($isDispatched = null);
 
+    /**
+     * @return \Psr\Log\LoggerInterface
+     */
+    public function getLogger();
+
 }
