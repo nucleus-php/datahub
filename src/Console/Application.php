@@ -2,55 +2,47 @@
 
 namespace NucleusPhp\DataHub\Console;
 
+use NucleusPhp\DataHub\Application as MainApplication;
+
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as SymfonyConsoleApplication;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * Class Application
  *
  * @author Jochem Klaver <nucleus-php@7ochem.nl>
  */
-class Application extends SymfonyConsoleApplication
+class Application extends MainApplication
 {
 
     /**
-     * @param string $name
-     * @param string $version
+     * @var SymfonyConsoleApplication
      */
-    public function __construct(string $name = 'UNKNOWN', string $version = 'UNKNOWN')
+    private $consoleApplication;
+
+    /**
+     */
+    public function __construct()
     {
-        if ($name === 'UNKNOWN') {
-            $name = str_replace('\\', ' ', __NAMESPACE__);
-        }
-        if ($version === 'UNKNOWN') {
-            $version = '0.1.0';
-        }
-        parent::__construct($name, $version);
+        parent::__construct();
+
+        $this->consoleApplication = new SymfonyConsoleApplication($this->getName());
+        $this->consoleApplication->add(new Command\EventDispatchCommand());
+        $this->consoleApplication->add(new Command\JobRunCommand());
     }
 
     /**
-     * Override to use a custom List command
-     *
-     * @return \Symfony\Component\Console\Command\Command[] An array of default Command instances
+     * @throws \Exception
      */
-    protected function getDefaultCommands()
+    public function run()
     {
-        $defaultCommands = parent::getDefaultCommands();
-
-        foreach ($defaultCommands as $i => $defaultCommand) {
-            /**
-             * @todo Create \NucleusPhp\DataHub\Console\Command\ListCommand to add listing of registered events and jobs
-             */
-            $localCommandOverrideClassName = sprintf(
-                '\\%s\\Command\\%s',
-                __NAMESPACE__,
-                array_reverse(explode('\\', get_class($defaultCommand)))[0]
-            );
-            if (class_exists($localCommandOverrideClassName)) {
-                $defaultCommands[$i] = new $localCommandOverrideClassName();
-            }
-        }
-
-        return $defaultCommands;
+        $input = new ArgvInput();
+        $output = new ConsoleOutput();
+        $logger = new \Symfony\Component\Console\Logger\ConsoleLogger($output);
+        static::setLogger($logger);
+        $this->consoleApplication->run($input, $output);
     }
 
 }

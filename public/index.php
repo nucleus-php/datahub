@@ -3,21 +3,23 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // @todo this is not Windows safe where the full path would start with a drive (C:\)
-define('ROOT_DIR', dirname(dirname(
+$rootDir = dirname(dirname(
     substr($_SERVER['SCRIPT_FILENAME'], 0, strlen(DIRECTORY_SEPARATOR)) !== DIRECTORY_SEPARATOR
     ? getcwd() . DIRECTORY_SEPARATOR . $_SERVER['SCRIPT_FILENAME']
     : $_SERVER['SCRIPT_FILENAME']
-)));
+));
 
-require ROOT_DIR . '/vendor/autoload.php';
+require $rootDir . '/vendor/autoload.php';
+
+\NucleusPhp\DataHub\Application::setRootDir($rootDir);
 
 /**
  * @todo Big index.php refactor 1.: Basic setup stays in index.php
- * @todo Big index.php refactor 2.: Move request in, response out to App (Http v.s. Cli?) class
- * @todo Big index.php refactor 3.: Move Routing related things into class for routing as member of the App class
+ * @todo Big index.php refactor 2.: Move request in, response out to Application (Http v.s. Cli?) class
+ * @todo Big index.php refactor 3.: Move Routing related things into class for routing as member of the Application class
  */
 
-$request = \Zend\Diactoros\ServerRequestFactory::fromGlobals();
+$request = \NucleusPhp\DataHub\Application::getRequest();
 
 $routerContainer = new Aura\Router\RouterContainer();
 $map = $routerContainer->getMap();

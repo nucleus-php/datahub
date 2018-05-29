@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+$vendorDir = null;
 if ('vendor' === basename($vendorDir = realpath(dirname(dirname(getcwd() . '/' . $_SERVER['SCRIPT_FILENAME']))))) {
     // We're symlinked into vendor/bin/ dir: we're included into a project (Composer requirement)
     require_once $vendorDir . '/autoload.php';
@@ -11,9 +12,9 @@ if ('vendor' === basename($vendorDir = realpath(dirname(dirname(getcwd() . '/' .
     throw new \Error('Could not load Composer\'s vendor/autoload.php');
 }
 
+$rootDir = realpath($vendorDir . '/..');
+
+\NucleusPhp\DataHub\Console\Application::setRootDir($rootDir);
+
 $application = new \NucleusPhp\DataHub\Console\Application();
-
-$application->add(new \NucleusPhp\DataHub\Console\Command\EventDispatchCommand());
-$application->add(new \NucleusPhp\DataHub\Console\Command\JobRunCommand());
-
 $application->run();

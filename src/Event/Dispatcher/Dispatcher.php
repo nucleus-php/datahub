@@ -47,4 +47,14 @@ class Dispatcher
         $this->event->isDispatched(true);
     }
 
+    /**
+     * @param EventInterface[] $batchOfEvents
+     */
+    public static function dispatchBatch(array $batchOfEvents)
+    {
+        foreach ($batchOfEvents as $event) {
+            (new static($event))->dispatch();
+        }
+    }
+
 }

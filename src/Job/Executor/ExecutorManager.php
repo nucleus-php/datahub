@@ -2,7 +2,10 @@
 
 namespace NucleusPhp\DataHub\Job\Executor;
 
+use NucleusPhp\DataHub\Application;
 use NucleusPhp\DataHub\Job\JobInterface;
+
+use Psr\Log\LoggerInterface;
 
 /**
  * Class ExecutorManager
@@ -70,6 +73,15 @@ class ExecutorManager
         foreach ($executors as $executor) {
             $executor->handle($job);
         }
+    }
+
+    /**
+     * @return LoggerInterface
+     * @throws \Exception
+     */
+    public static function getLogger()
+    {
+        return Application::getLogger();
     }
 
 }
